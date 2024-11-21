@@ -1,0 +1,27 @@
+BEGIN TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT *
+FROM logs
+WHERE project_id IN ('2dfffa75-7cd9-4426-922c-95046f3d06a0')
+ORDER BY created_at;
+
+CALL close_project('2dfffa75-7cd9-4426-922c-95046f3d06a0');
+
+SELECT *
+FROM logs
+WHERE project_id IN ('2dfffa75-7cd9-4426-922c-95046f3d06a0')
+ORDER BY created_at;
+ROLLBACK;
+
+BEGIN TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+SELECT *
+FROM logs
+WHERE project_id IN ('4abb5b99-3889-4c20-a575-e65886f266f9')
+ORDER BY created_at;
+
+CALL close_project('4abb5b99-3889-4c20-a575-e65886f266f9');
+
+SELECT *
+FROM logs
+WHERE project_id IN ('4abb5b99-3889-4c20-a575-e65886f266f9')
+ORDER BY created_at;
+ROLLBACK;

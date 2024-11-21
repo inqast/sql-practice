@@ -1,0 +1,26 @@
+version: "3.1"
+services:
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+      - ./raw_data/cars.csv:/cars.csv
+    env_file:
+      - ./db.env
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    env_file:
+      - ./pgadmin.env
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  local_pgdata:
+  pgadmin-data:

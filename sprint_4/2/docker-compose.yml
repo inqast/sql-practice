@@ -1,0 +1,28 @@
+version: "3.1"
+services:
+  db:
+    image: postgis/postgis:15-3.5
+    ports:
+      - "5432:5432"
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+    env_file:
+      - ./db.env
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    env_file:
+      - ./pgadmin.env
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./raw_data/project_4_part2.sql:/var/lib/pgadmin/storage/user-name_domain-name.com/project_4_part2.sql
+    depends_on:
+      - db
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
